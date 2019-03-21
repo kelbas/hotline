@@ -19,18 +19,16 @@ class ArticleController
      */
     public function homepage()
     {
-        return new Response('OMG!');
-    }
-
-    /**
-     * @Route("/auto")
-     */
-    public function addAuto()
-    {
         $json = file_get_contents('https://hotline.finance/api/autoloans?');
         $data = json_decode($json, true);
-       
-        return new JsonResponse($data);
+        echo '<pre>';
+        foreach ($data as $kay => $data2){
+            foreach($data2['items'] as $kay => $value){
+                var_dump($value);
+            }
+        }
+
+        //return new JsonResponse($data);
     }
 
     /**
