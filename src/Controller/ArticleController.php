@@ -1,44 +1,26 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: kelba_000
- * Date: 03/20/2019
- * Time: 17:08
- */
 
 namespace App\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use App\Repository\AutoRepository;
+use FOS\RestBundle\Controller\FOSRestController;
+use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
+use App\Entity\Auto;
 
-class ArticleController
+class ArticleController extends FOSRestController
 {
     /**
-     * @Route("/")
+     * @Rest\Get("/")
      */
-    public function homepage()
+    public function getAction()
     {
-        $json = file_get_contents('https://hotline.finance/api/autoloans?');
-        $data = json_decode($json, true);
-        echo '<pre>';
-        foreach ($data as $kay => $data2){
-            foreach($data2['items'] as $kay => $value){
-                var_dump($value);
-            }
-        }
+        $product = $this->getDoctrine()
+            ->getRepository(Auto::class)->testic();
 
-        //return new JsonResponse($data);
+        //var_dump($product);
+
+        return new JsonResponse($product);
     }
 
-    /**
-     * @Route("/auto/{slug}")
-     */
-    public function show($slug)
-    {
-        return new Response(sprintf(
-            'Help: %s',
-            $slug
-        ));
-    }
 }

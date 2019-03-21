@@ -19,6 +19,26 @@ class AutoRepository extends ServiceEntityRepository
         parent::__construct($registry, Auto::class);
     }
 
+    public function testic()
+    {
+        $entityManager = $this->getEntityManager();
+      /* $sql = $entityManager->createQuery('SELECT auto.title, auto.slug, auto.bank, auto.monthly_commission,
+         consumerloans.title, consumerloans.slug, consumerloans.bank, consumerloans.monthly_commission,
+         mortgages.title, mortgages.slug, mortgages.bank, mortgages.monthly_commission
+         FROM Auto
+         WHERE auto.title IS NULL 
+         ');
+
+        return $sql->execute();*/
+        $query = $entityManager->createQuery('SELECT auto.title, auto.slug, auto.bank, auto.monthly_commission,
+         consumerloans.title, consumerloans.slug, consumerloans.bank, consumerloans.monthly_commission, 
+         mortgages.title, mortgages.slug, mortgages.bank, mortgages.monthly_commission
+          FROM App\Entity\Auto auto, App\Entity\Consumerloans consumerloans, App\Entity\Mortgages mortgages');
+        $users = $query->getResult();
+
+        return $users;
+    }
+
     // /**
     //  * @return Auto[] Returns an array of Auto objects
     //  */
