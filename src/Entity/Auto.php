@@ -86,6 +86,7 @@ class Auto
      */
     private $bank;
 
+
     public function getId(): ?int
     {
         return $this->id;
